@@ -1,0 +1,13 @@
+{
+  "name": "whop-war-websocket-server",
+  "version": "1.0.0",
+  "description": "WebSocket server for Multiplayer War Game",
+  "main": "websocket.js",
+  "scripts": {
+    "start": "node websocket.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
+
