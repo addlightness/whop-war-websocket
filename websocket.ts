@@ -344,7 +344,7 @@ function cleanupPlayer(playerId: string) {
     queue.delete(playerId);
     
     // Find and cleanup any games this player was in
-    for (const [gameId, game] of games.entries()) {
+    for (const [gameId, game] of Array.from(games.entries())) {
       if (game.player1.id === playerId || game.player2.id === playerId) {
         // Notify opponent about disconnection
         const opponent = game.player1.id === playerId ? game.player2 : game.player1;
@@ -367,7 +367,11 @@ function cleanupPlayer(playerId: string) {
 }
 
 // WebSocket Server
-const wss = new WebSocketServer({ port: 3001 });
+const port = Number(process.env.PORT) || 3001;
+const wss = new WebSocketServer({ 
+  port,
+  host: '0.0.0.0'
+});
 
 wss.on('connection', (ws: WebSocket, req) => {
   console.log('New WebSocket connection');
@@ -520,4 +524,4 @@ wss.on('connection', (ws: WebSocket, req) => {
   });
 });
 
-console.log('WebSocket server running on port 3001');
+console.log(`WebSocket server running on 0.0.0.0:${port}`);
